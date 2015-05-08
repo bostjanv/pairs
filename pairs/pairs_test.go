@@ -67,7 +67,7 @@ func TestCornerCases(t *testing.T) {
 func TestRandom(t *testing.T) {
 	for i := 0; i < 1000; i++ {
 		n := rand.Intn(10000) + 1
-		maxval := rand.Intn(10000)
+		maxval := rand.Intn(10000-1) + 1
 		s := rand.Intn(maxval)
 		runOnce(t, n, maxval, s)
 	}
