@@ -4,27 +4,20 @@ import "math/rand"
 import "sort"
 
 // Find unique pairs in array that sum to s.
-func FindUnique(a []int, s int) (ps [][2]int, c uint) {
+// Time complexity: O(n)
+func FindUnique(a []int, s int) (ps [][2]int) {
 	ps = make([][2]int, 0)
 	i, j := 0, len(a)-1
 
-	c = 0 // loop iteration counter
-
 	for j > i {
-		//fmt.Printf("Comparing %d and %d\n", a[i], a[j])
-		c++
-		s1 := a[i] + a[j]
+        ai, aj := a[i], a[j]
+		s1 := ai + aj
 		if s1 == s {
-			p := [2]int{a[i],a[j]}
+			p := [2]int{ai,aj}
 			ps = append(ps, p)
-			// Skip all elements that are equal to a[i] and a[j]
-            ai, aj := a[i], a[j]
-			for i++; i < j && a[i] == ai; i++ {
-                c++
-			}
-			for j--; i < j && a[j] == aj; j-- {
-                c++
-            }
+			// Skip all elements that are equal to ai and aj
+			for i++; i < j && a[i] == ai; i++ { }
+			for j--; i < j && a[j] == aj; j-- { }
 		} else if s1 > s {
 			j--
 		} else if s1 < s {
@@ -36,25 +29,21 @@ func FindUnique(a []int, s int) (ps [][2]int, c uint) {
 }
 
 // Finds all pairs (duplicates included) in array that sum to s.
-func Find(a []int, s int) (ps [][2]int, c uint) {
+// Time complexity: O(n)
+func Find(a []int, s int) (ps [][2]int) {
 	ps = make([][2]int, 0)
 	i, j := 0, len(a)-1
 
-	c = 0 // iteration counter
-
 	for j > i {
-		//fmt.Printf("Comparing %d and %d\n", a[i], a[j])
-		s1 := a[i] + a[j]
+        ai, aj := a[i], a[j]
+		s1 := ai + aj
 		if s1 == s {
-			p := [2]int{a[i],a[j]}
+			p := [2]int{ai,aj}
 			ps = append(ps, p)
-            ai := a[i]
             ndup := 1
-            c++
             for i++; j > i && a[i] == ai; i++ {
 			    ps = append(ps, p)
                 ndup++
-                c++
             }
             i = i-ndup
             j--
@@ -68,17 +57,18 @@ func Find(a []int, s int) (ps [][2]int, c uint) {
 	return
 }
 
-func FindBruteForce(a []int, s int) (ps [][2]int, c int) {
+// Finds all pairs (duplicates included) in array that sum to s.
+// Time complexitiy: O(n^2)
+func FindBruteForce(a []int, s int) (ps [][2]int) {
 	ps = make([][2]int, 0)
 
-	c = 0
-
 	for i := 0; i < len(a); i++ {
+        ai := a[i]
 		for j := i+1; j < len(a); j++ {
-			c++
-			s1 := a[i] + a[j]
+            aj := a[j]
+			s1 := ai + aj
 			if s1 == s {
-				p := [2]int{a[i],a[j]}
+				p := [2]int{ai, aj}
 				ps = append(ps, p)
 			} else if s1 > s  {
 				break
