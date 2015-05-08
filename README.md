@@ -1,5 +1,5 @@
 # pairs
-Find all pairs of integers in a sorted array that sums to a given value.
+Find all pairs of integers in a sorted array that sum to a given value.
 
 Three different algorithms are implemented:
 
